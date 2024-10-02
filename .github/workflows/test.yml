@@ -1,0 +1,37 @@
+name: "Test Unpack and Pack"
+
+on:
+  push:
+    branches:
+      - master
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pack assets
+        run: echo "super-secret-password-001" | ./pack.sh assets
+
+      - name: Verify assets packed
+        uses: andstor/file-existence-action@v3
+        with:
+          files: "assets/sounds.zip, assets/sprites.zip"
+          fail: true
+
+      - name: Remove asset files
+        run: rm -rf assets/sounds assets/sprites
+
+      - name: Unpack assets
+        uses: ./
+        with:
+          path: assets
+          password: super-secret-password-001
+
+      - name: Verify assets unpacked
+        uses: andstor/file-existence-action@v3
+        with:
+          files: "assets/sounds/scream.mp3, assets/sprites/secret.png"
+          fail: true
+      
