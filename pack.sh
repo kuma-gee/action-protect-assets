@@ -5,7 +5,7 @@ EXCLUDE="$2"
 OUTPUT_FOLDER="$3"
 
 if [ -z "$ASSET_FOLDER" ] || [ ! -d $ASSET_FOLDER ]; then
-    echo "Invalid asset folder provided"
+    echo "Invalid asset folder provided: $ASSET_FOLDER"
     exit 1
 fi
 
@@ -20,10 +20,7 @@ fi
 ASSET_FOLDER="${ASSET_FOLDER%/}"
 OUTPUT_FOLDER="${OUTPUT_FOLDER%/}"
 
-# Read Password
-echo -n Password: 
-read -s password
-echo
+read -p "Password: " password
 
 root="$(pwd)"
 for dir in $ASSET_FOLDER/*; do

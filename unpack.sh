@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 ASSET_FOLDER="$1"
-OUTPUT_FOLDER="$2"
+password="$2"
+OUTPUT_FOLDER="$3"
 
 if [ -z "$ASSET_FOLDER" ] || [ ! -d $ASSET_FOLDER ]; then
-    echo "Invalid asset folder provided"
+    echo "Invalid asset folder provided: $ASSET_FOLDER"
     exit 1
 fi
 
@@ -19,17 +20,14 @@ fi
 ASSET_FOLDER="${ASSET_FOLDER%/}"
 OUTPUT_FOLDER="${OUTPUT_FOLDER%/}"
 
-# Read Password
-echo -n Password: 
-read -s password
-echo
+# read -s -p "Password: " password
 
 for file in $ASSET_FOLDER/*; do
-    if [ -f "$file" ] && [[ "$file" == *.zip ]]; then
+    if [[ -f "$file" ]] && [[ "$file" == *.zip ]]; then
         echo "Unpacking files in $file"
 
         filename=$(basename "$file")
         filename="${filename%.*}"
-        unzip -P $password -d "$OUTPUT_FOLDER/$filename" $file
+        unzip -o -P $password -d "$OUTPUT_FOLDER/$filename" $file
     fi
 done
