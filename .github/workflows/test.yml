@@ -17,7 +17,7 @@ jobs:
       - name: Verify assets packed
         uses: andstor/file-existence-action@v3
         with:
-          files: "assets/sounds.zip, assets/sprites.zip"
+          files: "assets/sounds.7z, assets/sprites.7z"
           fail: true
 
       - name: Remove asset files
@@ -34,4 +34,13 @@ jobs:
         with:
           files: "assets/sounds/scream.mp3, assets/sprites/secret.png"
           fail: true
+      
+      - run: |
+          if [ -f assets/sounds/scream.mp3.import ]; then
+            exit 1
+          fi
+
+          if [ -f assets/sprites/secret.png.import ]; then
+            exit 1
+          fi
       
