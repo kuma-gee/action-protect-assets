@@ -6,7 +6,7 @@ OUTPUT_FOLDER="$3"
 
 if [ -z "$ASSET_FOLDER" ] || [ ! -d $ASSET_FOLDER ]; then
     echo "Invalid asset folder provided: $ASSET_FOLDER"
-    exit 1
+    exit 0
 fi
 
 if [ -z "$OUTPUT_FOLDER" ]; then
