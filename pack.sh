@@ -38,7 +38,11 @@ for dir in $ASSET_FOLDER/*; do
         cd $dir
 
         echo "Zipping to $out_file"
-        7z a "$root/$out_file" * -p"$password" -mhe=on -xr!$EXCLUDE
+        if [ -z "$EXCLUDE" ]; then
+            7z a "$root/$out_file" * -p"$password" -mhe=on
+        else
+            7z a "$root/$out_file" * -p"$password" -mhe=on -xr!$EXCLUDE
+        fi
 
         cd -
     fi

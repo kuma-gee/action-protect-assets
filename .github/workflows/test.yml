@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Pack assets
-        run: echo "super-secret-password-001" | ./pack.sh assets
+        run: echo "super-secret-password-001" | ./pack.sh assets *.import
 
       - name: Verify assets packed
         uses: andstor/file-existence-action@v3
