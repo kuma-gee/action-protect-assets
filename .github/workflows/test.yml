@@ -14,11 +14,16 @@ jobs:
       - name: Pack assets
         run: echo "super-secret-password-001" | ./pack.sh assets *.import
 
-      - name: Verify assets packed
-        uses: andstor/file-existence-action@v3
-        with:
-          files: "assets/sounds.7z, assets/sprites.7z"
-          fail: true
+      - run: |
+          if [ ! -f assets/sounds.7z ]; then
+            echo "::error:: Sound archive missing"
+            exit 1
+          fi
+
+          if [ ! -f assets/sprites.7z ]; then
+            echo "::error:: Sprites archive missing"
+            exit 1
+          fi
 
       - name: Remove asset files
         run: rm -rf assets/sounds assets/sprites
@@ -28,19 +33,25 @@ jobs:
         with:
           path: assets
           password: super-secret-password-001
-
-      - name: Verify assets unpacked
-        uses: andstor/file-existence-action@v3
-        with:
-          files: "assets/sounds/scream.mp3, assets/sprites/secret.png"
-          fail: true
       
       - run: |
+          if [ ! -f assets/sounds/scream.mp3 ]; then
+            echo "::error:: Sound file does not exist"
+            exit 1
+          fi
+
           if [ -f assets/sounds/scream.mp3.import ]; then
+            echo "::error:: Sound import files should not exist"
+            exit 1
+          fi
+
+          if [ ! -f assets/sprites/secret.png ]; then
+            echo "::error:: Sprite file does not exist"
             exit 1
           fi
 
           if [ -f assets/sprites/secret.png.import ]; then
+            echo "::error:: Sprite import files should not exist"
             exit 1
           fi
       
