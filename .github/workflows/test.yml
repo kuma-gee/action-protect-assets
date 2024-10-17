@@ -15,12 +15,12 @@ jobs:
         run: echo "super-secret-password-001" | ./pack.sh assets *.import
 
       - run: |
-          if [ ! -f assets/sounds.7z ]; then
+          if [ ! -f assets/sounds.zip ]; then
             echo "::error:: Sound archive missing"
             exit 1
           fi
 
-          if [ ! -f assets/sprites.7z ]; then
+          if [ ! -f assets/sprites.zip ]; then
             echo "::error:: Sprites archive missing"
             exit 1
           fi

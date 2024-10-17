@@ -29,7 +29,7 @@ for dir in $ASSET_FOLDER/*; do
         echo "Packing files in $dir"
 
         name=$(basename "$dir")
-        out_file="$OUTPUT_FOLDER/$name.7z"
+        out_file="$OUTPUT_FOLDER/$name.zip"
         if [ -f "$out_file" ]; then
             echo "Removing existing file $out_file"
             rm $out_file
@@ -38,10 +38,10 @@ for dir in $ASSET_FOLDER/*; do
         cd $dir
 
         echo "Zipping to $out_file"
-        if [ -z "$EXCLUDE" ]; then
-            7z a "$root/$out_file" * -p"$password" -mhe=on
+        if [ -z $EXCLUDE ]; then
+            zip -e -r "$root/$out_file" * -9 -P $password
         else
-            7z a "$root/$out_file" * -p"$password" -mhe=on -xr!$EXCLUDE
+            zip -e -r "$root/$out_file" * -x $EXCLUDE -9 -P $password
         fi
 
         cd -

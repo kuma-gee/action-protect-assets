@@ -23,11 +23,11 @@ OUTPUT_FOLDER="${OUTPUT_FOLDER%/}"
 # read -s -p "Password: " password
 
 for file in $ASSET_FOLDER/*; do
-    if [[ -f "$file" ]] && [[ "$file" == *.7z ]]; then
+    if [[ -f "$file" ]] && [[ "$file" == *.zip ]]; then
         echo "Unpacking files in $file"
 
         filename=$(basename "$file")
         filename="${filename%.*}"
-        7z x $file -p"$password" -o"$OUTPUT_FOLDER/$filename" -y
+        unzip -o -P "$password" -d "$OUTPUT_FOLDER/$filename" $file
     fi
 done
