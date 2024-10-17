@@ -28,6 +28,6 @@ for file in $ASSET_FOLDER/*; do
 
         filename=$(basename "$file")
         filename="${filename%.*}"
-        unzip -o -P "$password" -d "$OUTPUT_FOLDER/$filename" $file
+        unzip -P "$password" -d "$OUTPUT_FOLDER/$filename" $file
     fi
 done
